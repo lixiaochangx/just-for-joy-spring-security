@@ -1,0 +1,13 @@
+server:
+  port: 8090
+
+spring:
+  security:
+    user:
+      name: lxcecho
+      password: 123456
+
+  datasource:
+    username: root
+    password: lixc0426
+    url: jdbc:mysql://localhost:3306/security?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
