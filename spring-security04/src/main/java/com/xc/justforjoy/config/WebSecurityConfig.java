@@ -13,9 +13,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 /**
  * @author lxcecho
  * @since 2020/8/4
- */
-
-/**
+ * <p>
  * The WebSecurityConfig class is annotated with @EnableWebSecurity to enable Spring Security’s web security support
  * and provide the Spring MVC integration. It also extends WebSecurityConfigurerAdapter and overrides a couple of its
  * methods to set some specifics of the web security configuration.
@@ -48,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * The userDetailsService() method sets up an in-memory user store with a single user.
      * That user is given a user name of user, a password of password, and a role of USER.
+     *
      * @return
      */
     @Bean

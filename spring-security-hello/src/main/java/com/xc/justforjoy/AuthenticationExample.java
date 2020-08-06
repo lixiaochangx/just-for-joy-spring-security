@@ -1,4 +1,4 @@
-package com.xc.justforjoy.test;
+package com.xc.justforjoy;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,8 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +21,11 @@ public class AuthenticationExample {
     private static AuthenticationManager am = new SampleAuthenticationManager();
 
     public static void main(String[] args) throws Exception {
-        String userName = "lxcecho";
+        String username = "lxcecho";
         String password = "123456";
         try {
             // TODO password是否需要加密
-            Authentication request = new UsernamePasswordAuthenticationToken(userName, password);
+            Authentication request = new UsernamePasswordAuthenticationToken(username, password);
             Authentication result = am.authenticate(request);
             SecurityContextHolder.getContext().setAuthentication(result);
         } catch (AuthenticationException e) {

@@ -60,6 +60,24 @@ public class BackUserServiceImpl extends ServiceImpl<BackUserMapper, BackUser> i
         if (exist(userName)) {
             throw new RuntimeException("用户名已存在！");
         }
+
+        /**
+         * 登录时用到了 DaoAuthenticationProvider ，它有一个方法
+         * #additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)，
+         * 此方法用来校验从数据库取得的用户信息和用户输入的信息是否匹配。
+         *
+         * 在注册时，对用户密码加密
+         * 应用 BCryptPasswordEncoder 之后，明文密码是无法被识别的，就会校验失败，只有存入密文密码才能被正常识别。所以，应该在注册时对用户密码进行加密。
+         *
+         * private void encryptPassword(UserEntity userEntity){
+         *         String password = userEntity.getPassword();
+         *         password = new BCryptPasswordEncoder().encode(password);
+         *         userEntity.setPassword(password);
+         * }
+         *
+         * 补充说明：即使不同的用户注册时输入相同的密码，存入数据库的密文密码也会不同。
+         */
+
         // 随机使用加密方式
         Random random = new Random();
         int x = random.nextInt(5);

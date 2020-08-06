@@ -23,6 +23,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
+     * 通常，子类不能通过调用super来调用此方法，一位内他可能会被覆盖其配置，默认配置为：
+     * http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+     * <p>
      * 匹配 "/" 路径，不需要权限即可访问
      * 匹配 "/user" 及其以下所有路径，都需要 "USER" 权限
      * 登录地址为 "/login"，登录成功默认跳转到页面 "/user"
@@ -54,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 在内存中创建一个名为 "lxcecho" 的用户，密码为 "123456"，拥有 "USER" 权限，直接使用，
+     * 一定要记得使用 @Bean 将其注入到容器中！！！
      */
     /*@Bean
     @Override
@@ -78,6 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 或者在configure(AuthenticationManagerBuilder auth)中在内存中创建一个名为 "lxcecho" 的用户，密码为 "123456"，拥有 "USER" 权限，
      * 不同在于 需要创建一个 PasswordEncoder 加密的实例，否则会报：java.lang.IllegalArgumentException: There is no PasswordEncoder mapped for the id "null"
+     * <p>
+     * AuthenticationManagerBuilder 用于创建一个 AuthenticationManager，让我能够轻松的实现内存验证、LADP验证、基于JDBC的验证、添加UserDetailsService、添加AuthenticationProvider。
      *
      * @param auth
      * @throws Exception
