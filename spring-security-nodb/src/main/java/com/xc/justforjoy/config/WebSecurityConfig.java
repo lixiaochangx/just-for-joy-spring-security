@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -59,25 +60,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 在内存中创建一个名为 "lxcecho" 的用户，密码为 "123456"，拥有 "USER" 权限，直接使用，
      * 一定要记得使用 @Bean 将其注入到容器中！！！
      */
-    /*@Bean
+    @Bean
     @Override
     protected UserDetailsService userDetailsService() {
-        // 这里已经使用PasswordEncoder
+        // 这里已经使用默认的 PasswordEncoder
         User.UserBuilder users = User.withDefaultPasswordEncoder();
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(users.username("lxcecho").password("123456").roles("USER").build());
         return manager;
-    }*/
+
+        // 或者
+        /*User.UserBuilder users = User.withDefaultPasswordEncoder();
+        UserDetails user = users
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
+        UserDetails admin = users
+                .username("admin")
+                .password("password")
+                .roles("USER", "ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(user, admin);*/
+
+    }
+
 
     /**
-     * 不加密（已经弃用），一般使用 BCryptPasswordEncoder
+     * 不加密（已经弃用），一般情况下开发中使用 BCryptPasswordEncoder，
+     * 联合 configure(AuthenticationManagerBuilder auth) 使用
      *
      * @return
      */
-    @Bean
+    /*@Bean
     PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
-    }
+    }*/
 
     /**
      * 或者在configure(AuthenticationManagerBuilder auth)中在内存中创建一个名为 "lxcecho" 的用户，密码为 "123456"，拥有 "USER" 权限，
@@ -88,19 +106,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param auth
      * @throws Exception
      */
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /**
+        *//**
          * 开启在内存中定义用户，withUser 中是用户名，password 中则是用户密码，roles 中是用户角色。
          * 如果需要配置多个用户，用 and 相连。
          * and 表示结束当前标签，这是个时候上下文会重新回到 inMemoryAuthentication 方法中，然后开启新用户的配置。
-         */
+         *//*
         auth
                 .inMemoryAuthentication()
                 .withUser("lxcecho")
                 .password("123456")
                 .roles("USER");
-    }
+    }*/
 
     @Override
     public void configure(WebSecurity web) throws Exception {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 2020/8/4
  */
 @Controller
-public class MainController {
+public class HelloController {
 
     @RequestMapping("/")
     public String root() {

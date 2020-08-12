@@ -16,6 +16,8 @@ import java.util.List;
 /**
  * @author lxcecho
  * @since 2020/8/5
+ *
+ * 自定义校验
  */
 @Service
 public class DbUserDetailsService implements UserDetailsService {
@@ -25,6 +27,7 @@ public class DbUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         BackUser backUser = backUserService.getByUsername(username);
 
         if (backUser == null) {

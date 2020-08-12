@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
+                // 显式地提供HTTP Basic
                 .httpBasic().realmName("spring");
     }
 
